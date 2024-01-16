@@ -5,4 +5,4 @@ En este repositorio están los ejercicios del [tutorial oficial de Django](https
 A mí, personalmente, me es util para distinguir claramente entre los keywords de Django y los nombres puestos por el mismo usuario y me hace seguir los pasos de una manera menos automatizada.
 
 # django-tutorial-castellano
-Avanzado hasta [Comenzando Parte 3 ](https://docs.djangoproject.com/es/5.0/intro/tutorial03/)
+Avanzado hasta [Parte 3 hasta render() ](https://docs.djangoproject.com/es/5.0/intro/tutorial03/)
