@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ["192.168.0.114", "127.0.0.1", "localhost"]
 INSTALLED_APPS = [
     # Las propias:
     'sondeo.apps.SondeoConfig',
+    'homepage',
+    # Las de Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
