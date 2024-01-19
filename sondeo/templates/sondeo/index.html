@@ -11,7 +11,7 @@
 
   {% for pregunta in lista_ultimas_preguntas  %}
   <li>
-    <a href="/sondeo/{{pregunta.id}}"> {{pregunta.texto_pregunta}}</a>
+        <a href="{% url "sondeo:detalle" pregunta.id  %}"> {{pregunta.texto_pregunta}}</a>
   </li>
 
   {% endfor %}

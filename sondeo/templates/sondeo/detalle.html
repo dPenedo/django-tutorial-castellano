@@ -6,6 +6,18 @@
   <title>Document</title>
 </head>
 <body>
- {{ question }} 
+    <h1>
+ {{ pregunta.texto_pregunta }} 
+    </h1>
+    <ul>
+    {% for respuesta in pregunta.set.all %}
+
+      <li>{{ respuesta.texto_elegido }}</li>
+      {% endfor %}
+
+    </ul>
+
+
+
 </body>
 </html>

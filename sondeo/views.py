@@ -1,7 +1,5 @@
-from .models import Pregunta
-from django.shortcuts import render
-
-
+from .models import Pregunta, Respuesta
+from django.shortcuts import get_object_or_404, render
 
 
 def index(request):
@@ -13,13 +11,14 @@ def index(request):
 
 def detalle(request, pregunta_id):
     pregunta = get_object_or_404(Pregunta, pk=pregunta_id) 
-    return render(request, "sondeo/detalle.html", {"pregunta": pregunta})
+    respuesta = pregunta.respuesta_set.all()
+    return render(request, "sondeo/detalle.html", {"pregunta": pregunta, "respuesta": respuesta})
 
 
 def resultados(request, pregunta_id):
     respuesta = "Estás viendo los resultados de la pregunta %s "
-    return HttpResponse(respuesta % pregunta_id)
+    return render(request, "sondeo/resultados.html", {"respuesta": respuesta})
 
 def votar(request, pregunta_id):
-    return HttpResponse("Estás votando a la pregunta %s." % pregunta_id)
+    return render(request, "sondeo/votar.html", {"pregunta": pregunta})
     
