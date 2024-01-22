@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Detalle</title>
 </head>
+
 <body>
-    <h1>
- {{ pregunta.texto_pregunta }} 
-    </h1>
-    <ul>
-    {% for respuesta in pregunta.set.all %}
-
-      <li>{{ respuesta.texto_elegido }}</li>
+  <form action="{% url 'sondeo:votar' pregunta.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+      <legend>
+        <h1>{{ pregunta.texto_pregunta }}</h1>
+      </legend>
+      {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+      {% for respuesta in pregunta.respuesta_set.all %}
+      <input type="radio" name="respuesta" id="respuesta{{ forloop.counter }}" value="{{ respuesta.id }}">
+      <label for="respuesta{{ forloop.counter }}">{{ respuesta.texto_elegido }}</label><br>
       {% endfor %}
-
-    </ul>
-
+    </fieldset>
+    <input type="submit" value="Votar">
+  </form>
 
 
 </body>
+
 </html>

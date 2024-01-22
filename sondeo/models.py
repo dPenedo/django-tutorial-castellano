@@ -13,7 +13,6 @@ class Pregunta(models.Model):
         return self.fecha_de_publicacion >= timezone.now() - datetime.timedelta(days = 1) 
 
 
-
 class Respuesta(models.Model):
     pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE) # Relación de clave foránea con la tabla Pregunta y al borrarse se borran las respuestas asociadas
     texto_elegido = models.CharField(max_length=200)
