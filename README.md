@@ -5,7 +5,7 @@ En este repositorio están los ejercicios del [tutorial oficial de Django](https
 A mí, personalmente, me es util para distinguir claramente entre los keywords de Django y los nombres puestos por el mismo usuario y me hace seguir los pasos de una manera menos automatizada.
 
 # django-tutorial-castellano
-Avanzado hasta [Parte 4 funcionando](https://docs.djangoproject.com/es/5.0/intro/tutorial04/#use-generic-views-less-code-is-better)
+Avanzado hasta [Parte 5 empezando](https://docs.djangoproject.com/es/5.0/intro/tutorial05/#improving-our-view)
 
 
 #### Homepage

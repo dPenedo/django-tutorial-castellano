@@ -11,7 +11,7 @@
   <h1> {{ pregunta.texto_pregunta }} </h1>
   <ul>
     {% for respuesta in pregunta.respuesta_set.all %}
-    <li> {{ respuesta_texto_elegido }} -- {{ respuesta.votos }} voto{{ respuesta.votos|pluralize }} </li>
+    <li> {{ respuesta.texto_elegido }} -- {{ respuesta.votos }} voto{{ respuesta.votos|pluralize }} </li>
 
     {% endfor %}
   </ul>

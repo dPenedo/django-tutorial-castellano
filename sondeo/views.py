@@ -1,24 +1,26 @@
 from django.http import HttpResponseRedirect
-from .models import Pregunta, Respuesta
-from django.urls import reverse
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+from django.views import generic
+
+from .models import Pregunta, Respuesta
 
 
-def index(request):
-    lista_ultimas_preguntas = Pregunta.objects.order_by("-fecha_de_publicacion")[:5]
-    context = {
-        "lista_ultimas_preguntas": lista_ultimas_preguntas,
-    }
-    return render(request, "sondeo/index.html", context)
+class IndexView(generic.ListView):
+    template_name = "sondeo/index.html"
+    context_object_name = "lista_ultimas_preguntas"
 
-def detalle(request, pregunta_id):
-    pregunta = get_object_or_404(Pregunta, pk=pregunta_id) 
-    respuesta = pregunta.respuesta_set.all()
-    return render(request, "sondeo/detalle.html", {"pregunta": pregunta, "respuesta": respuesta})
+    def get_queryset(self):
+        # Devuelve las ultimas 5 preguntas publicadas
+        return Pregunta.objects.order_by("-fecha_de_publicacion")[:5]
 
-def resultados(request, pregunta_id):
-    pregunta = get_object_or_404(Pregunta, pk=pregunta_id)
-    return render(request, "sondeo/resultados.html", {"pregunta": pregunta})
+class DetalleView(generic.DetailView):
+    model = Pregunta
+    template_name = "sondeo/detalle.html"
+    
+class ResultadosView(generic.DetailView):
+    model = Pregunta
+    template_name = "sondeo/resultados.html"
 
 def votar(request, pregunta_id):
     pregunta = get_object_or_404(Pregunta, pk=pregunta_id) 

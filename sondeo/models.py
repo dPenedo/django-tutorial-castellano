@@ -10,8 +10,8 @@ class Pregunta(models.Model):
     def __str__(self):
         return self.texto_pregunta # Devuelve el texto de la pregunta al convertir el objeto a cadena de texto
     def publicado_recientemente(self):
-        return self.fecha_de_publicacion >= timezone.now() - datetime.timedelta(days = 1) 
-
+        ahora = timezone.now()
+        return ahora - datetime.timedelta(days=1) <= self.fecha_de_publicacion <= ahora
 
 class Respuesta(models.Model):
     pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE) # Relación de clave foránea con la tabla Pregunta y al borrarse se borran las respuestas asociadas
