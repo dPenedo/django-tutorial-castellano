@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
+from django.utils import timezone
 
 from .models import Pregunta, Respuesta
 
@@ -12,7 +13,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         # Devuelve las ultimas 5 preguntas publicadas
-        return Pregunta.objects.order_by("-fecha_de_publicacion")[:5]
+        return Pregunta.objects.filter(fecha_de_publicacion=timezone.now()).order_by("-fecha_de_publicacion")[:5]
 
 class DetalleView(generic.DetailView):
     model = Pregunta
