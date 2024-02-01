@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
-{% if lista_ultimas_preguntas %}
-<ul>
+  {% if lista_ultimas_preguntas %}
+  <ul>
 
-  {% for pregunta in lista_ultimas_preguntas  %}
-  <li>
-        <a href="{% url "sondeo:detalle" pregunta.id  %}"> {{pregunta.texto_pregunta}}</a>
-  </li>
+    {% for pregunta in lista_ultimas_preguntas %}
+    <li>
+      <a href="{% url 'sondeo:detalle' pregunta.id %}"> {{pregunta.texto_pregunta}}</a>
 
-  {% endfor %}
-</ul>
-{% else %}
-<p>No hay sondeos disponibles</p>
-{% endif %}
+    </li>
 
-  </body>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No hay sondeos disponibles</p>
+  {% endif %}
+
+</body>
+
 </html>
-
-

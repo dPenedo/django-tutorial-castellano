@@ -12,8 +12,8 @@ class IndexView(generic.ListView):
     context_object_name = "lista_ultimas_preguntas"
 
     def get_queryset(self):
-        # Devuelve las ultimas 5 preguntas publicadas
-        return Pregunta.objects.filter(fecha_de_publicacion=timezone.now()).order_by("-fecha_de_publicacion")[:5]
+        # Devuelve las ultimas 5 preguntas publicadas (sin incluir las que se publicarán en el futuro)
+        return Pregunta.objects.filter(fecha_de_publicacion__lte=timezone.now()).order_by("-fecha_de_publicacion")[:5]
 
 class DetalleView(generic.DetailView):
     model = Pregunta
