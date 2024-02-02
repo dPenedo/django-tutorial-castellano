@@ -13,15 +13,27 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         # Devuelve las ultimas 5 preguntas publicadas (sin incluir las que se publicarán en el futuro)
-        return Pregunta.objects.filter(fecha_de_publicacion__lte=timezone.now()).order_by("-fecha_de_publicacion")[:5]
+        return Pregunta.objects.filter(fecha_de_publicacion__lte=timezone.now()).order_by("-fecha_de_publicacion")[:5] #lte significa less than or equal to, menor o igual
 
 class DetalleView(generic.DetailView):
     model = Pregunta
     template_name = "sondeo/detalle.html"
+
+    def get_queryset(self):
+        """
+        Excluye las preguntas que no fueron publicadas aún
+        """
+        return Pregunta.objects.filter(fecha_de_publicacion__lte=timezone.now())
     
 class ResultadosView(generic.DetailView):
     model = Pregunta
     template_name = "sondeo/resultados.html"
+
+    def get_queryset(self):
+        """
+        Excluye los resultados que no fueron publicadas aún
+        """
+        return Pregunta.objects.filter(fecha_de_publicacion__lte=timezone.now())
 
 def votar(request, pregunta_id):
     pregunta = get_object_or_404(Pregunta, pk=pregunta_id) 

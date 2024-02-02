@@ -14,7 +14,7 @@ def crear_pregunta(texto_pregunta, days):
     return Pregunta.objects.create(texto_pregunta=texto_pregunta, fecha_de_publicacion=tiempo)
 
 
-class PruebasVistaIndicePreguntas(TestCase):
+class TestVistaIndicePreguntas(TestCase):
     def test_sin_preguntas(self):
         """
         Si no hay preguntas, se mostrará un mensaje apropiado
@@ -70,11 +70,47 @@ class PruebasVistaIndicePreguntas(TestCase):
 
 
 
+class TestVistaDetallePregunta(TestCase):
+    def test_pregunta_futura(self):
+        """
+        La vista de detalle para una pregunta con fecha_de_publicacion futura devuelve 404 no encontrado
+        """
+        pregunta_futura = crear_pregunta(texto_pregunta="Pregunta futura", days=5)
+        url = reverse("sondeo:detalle", args=(pregunta_futura.id,))
+        respuesta = self.client.get(url)
+        self.assertEqual(respuesta.status_code, 404)
+
+    def test_preguntas_pasadas(self):
+        """
+        La vista de detalles de una pregunta con fecha_de_publicacion futura muestra el texto de la pregunta
+        """
+        pregunta_pasada = crear_pregunta(texto_pregunta="Pregunta pasada.", days=-5)
+        url = reverse("sondeo:detalle", args=(pregunta_pasada.id,))
+        respuesta = self.client.get(url)
+        self.assertContains(respuesta, pregunta_pasada.texto_pregunta)
 
 
+class TestVistaResultadosPregunta(TestCase):
+    def test_pregunta_futura(self):
+        """
+        La vista de detalle para una pregunta con fecha_de_publicacion futura devuelve 404 no encontrado
+        """
+        pregunta_futura = crear_pregunta(texto_pregunta="Pregunta futura", days=5)
+        url = reverse("sondeo:resultados", args=(pregunta_futura.id,))
+        respuesta = self.client.get(url)
+        self.assertEqual(respuesta.status_code, 404)
+
+    def test_preguntas_pasadas(self):
+        """
+        La vista de resultados de una pregunta con fecha_de_publicacion futura muestra el texto de la pregunta
+        """
+        pregunta_pasada = crear_pregunta(texto_pregunta="Pregunta pasada.", days=-5)
+        url = reverse("sondeo:resultados", args=(pregunta_pasada.id,))
+        respuesta = self.client.get(url)
+        self.assertContains(respuesta, pregunta_pasada.texto_pregunta)
 
 
-class PreguntaModelTest(TestCase):
+class TestModeloPregunta(TestCase):
     def test_publicado_recientemenete_con_pregunta_futura(self):
         """
         publicado_recientemente() devuelve False para preguntas publicadas en el futuro
